@@ -1,8 +1,8 @@
 {
   "name": "fukuoka_api",
   "scripts": {
-    "dev": "bun run --hot app.ts",
-    "build": "bun build app.ts --target node --outfile api/index.js"
+    "dev": "bun run --hot index.ts",
+    "build": "bun build index.ts --target node --outfile api/index.js"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.5.2",

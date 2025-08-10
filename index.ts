@@ -4,7 +4,7 @@ import { swaggerUI } from "@hono/swagger-ui";
 import { measurementsApi } from "./src/api/v1/measurements";
 import damsApi from "./src/api/v1/dams";
 
-export const app = new Hono();
+const app = new Hono();
 app.use(logger());
 app.route("/measurements", measurementsApi);
 app.route("/dams",damsApi)
@@ -218,3 +218,4 @@ app.get("/doc", (c) =>
     ],
   })
 );
+export default app;
