@@ -22,7 +22,6 @@ https://data.bodik.jp/dataset/
 endpoint exmaple
 ```
 http://localhost:3000/measurements?station=kashii&type=ch4
-``
 ```
 ```
 http://localhost:3000/dams?dam=gokayama&date=20250809
