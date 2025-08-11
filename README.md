@@ -19,6 +19,21 @@ data
 https://data.bodik.jp/dataset/
 ```
 
+endpoint exmaple
+```
+http://localhost:3000/measurements?station=kashii&type=ch4
+``
+```
+```
+http://localhost:3000/dams?dam=gokayama&date=20250809
+```
+
+```
+http://localhost:3000/measurements?station=kashii&type=pm25
+```
+
+
+
 adding api process,
 1. first create db schema
 2. write script to import csv data to database
