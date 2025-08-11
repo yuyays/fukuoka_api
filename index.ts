@@ -9,6 +9,21 @@ app.use(logger());
 app.route("/measurements", measurementsApi);
 app.route("/dams",damsApi)
 
+app.get("/", (c) => {
+  return c.html(`
+    <html>
+      <head>
+        <title>Fukuoka API</title>
+      </head>
+      <body>
+        <h1>👋 Welcome to the Fukuoka API!</h1>
+        <p>Check out the <a href="${process.env.API_BASE_URL}/docs" target="_blank" rel="noopener noreferrer">API documentation</a>.</p>
+      </body>
+    </html>
+  `);
+});
+
+
 app.get(
   "/docs",
   swaggerUI({
@@ -185,6 +200,75 @@ app.get("/openapi.json", (c) => {
                           type: ["number", "null"],
                           description: "Measured value, null if not available",
                         },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            "400": {
+              description: "Invalid request parameters",
+            },
+            "404": {
+              description: "No data found matching the criteria",
+            },
+            "500": {
+              description: "Internal server error",
+            },
+          },
+        },
+      },
+      "/dams": {
+        get: {
+          summary: "Get dam water levels",
+          description: "Retrieve dam water levels with optional filters for dam name, date, and result limit.",
+          parameters: [
+            {
+              name: "dam",
+              in: "query",
+              description: "Filter by dam ID or English name (case-insensitive)",
+              schema: {
+                type: "string",
+              },
+              example: "Ino",
+            },
+            {
+              name: "date",
+              in: "query",
+              description: "Filter by specific date (YYYYMMDD format)",
+              schema: {
+                type: "string",
+                pattern: "^\\d{8}$",
+              },
+              example: "20250809",
+            },
+            {
+              name: "limit",
+              in: "query",
+              description: "Limit the number of results (default: 100)",
+              schema: {
+                type: "integer",
+                default: 100,
+                minimum: 1,
+              },
+              example: 50,
+            },
+          ],
+          responses: {
+            "200": {
+              description: "A list of dam water levels",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        damId: { type: "integer", description: "ID of the dam" },
+                        damName: { type: "string", description: "Name of the dam" },
+                        observationTime: { type: "string", format: "date-time", description: "Time of observation" },
+                        waterLevel: { type: "number", description: "Water level in meters" },
+                        capacity: { type: "number", description: "Capacity of the dam in percentage" },
                       },
                     },
                   },
