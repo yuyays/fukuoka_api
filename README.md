@@ -4,7 +4,12 @@ To install dependencies:
 ```sh
 bun install
 ```
-
+.env
+```
+DATABASE_URL ="yourpostresdb"
+API_BASE_URL = "https://fukuoka-api.vercel.app"
+```
+```
 To run:
 ```sh
 bun run dev
